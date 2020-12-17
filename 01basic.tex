@@ -1,0 +1,53 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Basic Definitions and Galois Connection}
+
+\begin{dfn} Filter. 
+
+  Let $X$ be a set and $F \subseteq 2^X$. 
+  Then $F$ is a \emph{filter on $X$} when 
+  \begin{enumerate}
+    \item $X \in F$. 
+    \item For all $U \in F$ and $V \subseteq X$, 
+    $U \subseteq V \imp V \in F$.  
+    \item For all $U, V \in F$, $U \cap V \in F$. 
+  \end{enumerate} 
+  Let $Fil(X)$ denote the set of all filters on $X$.
+
+  $F$ is called \emph{proper} when $F \neq 2^X$,
+  the largest filter in $Fil(X)$. 
+\end{dfn} 
+
+\begin{dfn} Image Filter, Preimage Filter. 
+
+  Let $f : X \to Y$ be a map of sets, $F \in Fil(X)$, $G \in Fil(Y)$. 
+  
+  Then \begin{align*}
+    f F &:= \set{V \subseteq Y \st \exists\,U \in F, f U \subseteq V} \\
+    f^{-1} G &:= \set{f^{-1}U \subseteq X \st U \in G}
+  \end{align*}
+\end{dfn}
+
+\begin{thm} Galois Connection of Filters. 
+
+  Let $f : X \to Y$ be a map of sets. 
+  Then \begin{enumerate}
+    \item For all $F_1, F_2 \in Fil(X)$, 
+    $F_1 \subseteq F_2 \imp fF_1 \subseteq fF_2$.
+    \item For all $G_1, G_2 \in Fil(Y)$,
+    $G_1 \subseteq G_2 \imp f^{-1}G_1 \subseteq f^{-1}G_2$. 
+    \item For $F \in Fil(X)$ and $G \in Fil(Y)$, 
+    $f^{-1}G \subseteq F \iff G \subseteq fF$.
+  \end{enumerate}
+\end{thm}
+\begin{proof} 
+  $(3)(\imp)$ Let $f^{-1}G \subseteq F$. Let $U \in G$. 
+  Then $f f^{-1} U \subseteq U$, where $f^{-1}U \in f^{-1}G \subseteq F$. 
+
+  $(3)(\limp)$ Let $G \subseteq fF$. Let $U \in G$.
+  Then there exists $V \in F$, $fV \subseteq U$.
+  So $V \subseteq f^{-1} fV \subseteq f^{-1}U$ implies $f^{-1}U \in F$.
+\end{proof}
+
+\end{document}

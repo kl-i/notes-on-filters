@@ -1,0 +1,61 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Constructions}
+
+\begin{dfn} Join of an arbitrary collection of Filters.
+  
+  Let $X$ be a set, $\F \subs Fil(X)$.
+  Define the \emph{join over $\F$} as 
+  \[
+    \sqcup\,\F := \set{
+      W \subs X \st \exists\, I\text{ finite } \subs \bigcup_{F \in \F} F,
+      \bigcap_{V \in I} V \subs W
+    }
+  \]
+  This is the minimal filter containing all $F \in \F$.
+\end{dfn}
+
+\begin{thm} Characterisation of Filters on Products. 
+  
+  Let $I$ be a set and for each $i \in I$, $X_i$ a topological space,
+  $x \in \prod_{i\in I} X_i$,
+  $\pi_i : \prod_{i \in I} X_i \to X_i$ be the natural projection.
+
+  Then $N(x) = \sqcup\set{\pi_i\inv N(\pi_i(x)) \st i \in I}$.
+  In particular, 
+  for all $F \in Fil\brkt{\prod_{i\in I} X_i}$, 
+  $F$ converges to $x$ $\iff$ 
+  for all $i \in I$, $\pi_i F$ converges to $\pi_i(x)$.
+\end{thm}
+\begin{proof}
+  It suffices to show that $N(x)$ is the minimal filter containing
+  all $\pi_i\inv N(\pi_i(x))$.
+
+  First note that for all $i \in I$, continuity of $\pi_i$ implies 
+  $N(\pi_i(x)) \subs \pi_iN(x)$,
+  which implies by the Galois connection of filters, 
+  $\pi_i\inv N(\pi_i(x)) \subs N(x)$.
+
+  Next, let $F \in Fil\brkt{\prod_{i\in I}X_i}$ such that 
+  all $\pi_i\inv N(\pi_i(x)) \subs F$.
+  Let $W \in N(x)$.
+  By definition, 
+  there exists $U \in Open(\prod_{i\in I}X_i)$, $x \in U \subs W$.
+  Then by definition of the product topology, 
+  there exists finite $J \subs I$ and $(U_i) \in \prod_{i \in J} Open(X_i)$
+  such that $x \in \bigcap_{i \in J} \pi_i\inv U_i \subs U$.
+  This implies for all $i\in J$, $\pi_i\inv U_i \in \pi_i\inv N(\pi_i(x))$.
+  Since all $\pi_i\inv U_i \in N(x) \cap F$
+  and $\bigcap_{i\in J}\pi_i\inv U_i \subs W$,
+  we have $W \in F$.
+  This proves $N(x) = \sum_{i \in I} \pi_i\inv N(\pi_i(x))$.
+  
+  Let $F$ be a filter on the product.
+  Then $F$ converges to $x$ $\iff N(x) \subs F \iff 
+  \forall\, i\in I, \pi_i\inv N(\pi_i(x)) \subs F. \iff 
+  \forall\, i\in I, N(\pi_i(x)) \subs \pi_i F \iff
+  \forall\, i \in I, F$ converges to $\pi_i(x)$ 
+  by the Galois connection of filters.  
+\end{proof}
+\end{document}

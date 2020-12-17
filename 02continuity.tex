@@ -1,0 +1,77 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Continuity}
+
+\begin{rmk} Naive Characterisation of Continuity. 
+  
+  Let $X, Y$ be topological spaces, $f : X \to Y$ a map of sets. 
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $f$ continuous. 
+    \item For all $x \in X$ and $\al : \N \to X$,
+    $\al$ converges to $x$ $\imp$
+    $f \circ \al$ converges to $f(x)$.
+  \end{enumerate}
+\end{rmk}
+
+\begin{prop} Neighbourhood Filter. 
+  
+  Let $X$ be a topological space, $x \in X$, 
+  $Open(X)$ the set of opens of $X$. \newline
+  Define the set of \emph{neighbourhoods of $x$} as 
+  \[N(x) := 
+  \set{V \subseteq X \st \exists\,U \in Open(X), x \in U \subseteq V}\]
+  Then $N(x) \in Fil(X)$. 
+\end{prop}
+\begin{proof} 
+  Clear.
+\end{proof}
+
+\begin{dfn} Filter Converging to Point. 
+  
+  Let $X$ be a topological space, $x \in X$, $F \in Fil(X)$.
+  Then \emph{$F$ converges to $x$} when $N(x) \subseteq F$.
+\end{dfn}
+
+\begin{rmk} Motivation for Filter Convergence Definition. 
+  
+  Let $X$ be a topological space, $x \in X$,
+  $\al : \N \to X$. 
+  Define the \emph{filter associated with $\al$} as 
+  \[F_\al := 
+  \{V \subseteq X \st \exists\, n \in \N, \al\N_{\geq n} \subseteq V\}\]
+  Then $\al$ converges to $x$ if and only if $F_\al$ converges to $x$.
+\end{rmk}
+
+\begin{thm} Characterisation of Continuity. 
+  
+  Let $X, Y$ be topological spaces, $f : X \to Y$ a map of sets. 
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $f$ continuous. 
+    \item For all $x \in X$ and $F \in Fil(X)$,
+    $F$ converges to $x$ $\imp$ $fF$ converges to $f(x)$.
+    \item For all $x \in X$, $fN(x)$ converges to $f(x)$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  $(1\imp 2)$
+  Let $x \in X$, $F \in Fil(x)$, $F$ converges to $x$. 
+  Let $V \in N(f(x))$.
+  Then $f^{-1}V \in N(x) \subseteq F$ by continuity of $f$,
+  and $f f^{-1} V \subseteq V$.
+  So $N(f(x)) \subseteq f F$.
+
+  $(2\imp 3)$ Clear. 
+
+  $(2\imp 1)$ 
+  Let $U \in Open(Y)$.
+  Then for all $x \in f^{-1}U$,
+  $fN(x)$ converges to $f(x)$ implies $U \in fN(x)$.
+  So there exists $U_x \in N(x)$, $fU_x \subseteq U$.
+  It follows that $f^{-1}U = \bigcup_{x \in f^{-1}U} U_x$, 
+  which is open. 
+\end{proof}
+
+\end{document}

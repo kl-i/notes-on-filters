@@ -1,0 +1,49 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Closed Sets}
+
+\begin{rmk} Naive Characterisation of Closed Sets. 
+  
+  Let $X$ be a topological space, $A \subseteq X$.
+  Then for all $x \in X$,
+  $x \in \bar{A} \iff x$ is a limit point of $A$.
+\end{rmk}
+
+\begin{dfn} Limit Points of a Subspace. 
+
+  Let $X$ be a topological space, $A \subseteq X$, $x \in X$.
+  Let $\io_A : A \to X$ be the natural inclusion,
+  continuous by giving $A$ the subspace topology. 
+  Then $x$ is a \emph{limit point of $A$} when
+  there exists $F \in Fil(A)$ such that 
+  $F \neq 2^A$ and $\io_A F$ converges to $x$.
+
+\end{dfn}
+
+\begin{thm} Characterisation of Closed Sets. 
+  
+  Let $X$ be a topological space, $A \subseteq X$.
+  Then for all $x \in X$,
+  $x \in \bar{A} \iff x$ is a limit point of $A$.
+\end{thm}
+\begin{proof}
+  Let $x \in X$.
+  Then \begin{align*}
+    x \in \bar{A} 
+    &\iff \forall\, C \in Closed(X), A \subseteq C \imp x \in C. 
+    \iff \forall\, U \in Open(X), x \in U \imp U \cap A \neq \varnothing. \\
+    &\iff \forall\, V \in N(x), V \cap A \neq \varnothing. 
+    \iff \varnothing \notin \io_A^{-1}N(x). 
+    \iff \io_A^{-1} N(x) \neq 2^A.
+  \end{align*}
+  So if $x \in \bar{A}$, by the Galois connection of filters,
+  $\io_A\io_A^{-1}N$ converges to $x$.
+  Conversely, if there exists $F\in Fil(A)$ such that 
+  $F \neq 2^A$ and $\io_A F$ converges to $x$,
+  then by the Galois connection of filters, 
+  $N(x) \subseteq \io_A F \imp 
+  \io_A^{-1} N(x) \subseteq \io_A^{-1}\io_A F \subseteq F \subsetneq 2^A$. 
+\end{proof}
+
+\end{document}

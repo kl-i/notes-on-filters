@@ -1,0 +1,211 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Compactness}
+
+\begin{rmk} Naive Characterisation of Compactness. 
+  
+  Let $X$ be a topological space. 
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $X$ compact. 
+    \item For all sequences $\al$ in $X$, 
+    there exists $x \in X$ such that $x$ is a limit point of $\al$.
+    \item For all sequences $\al$ in $X$, 
+    there exists a sequence $\be$ and $x \in X$,
+    such that $\be$ is a subsequence of $\al$ and $\be$ converges to $x$.
+  \end{enumerate}
+\end{rmk}
+
+\begin{dfn} Limit Point of a Filter.
+  
+  Let $X$ be a topological space, $F \in Fil(X)$, $x \in X$.
+  Then $x$ is a \emph{limit point of $F$} when
+  for all $V \in F$, $x$ is a limit point of $V$.
+\end{dfn}
+
+\begin{thm} Characterisation of Limit Points of a Filter.
+  
+  Let $X$ be a topological space, $F \in Fil(X)$, $x \in X$. 
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $x$ is a limit point of $F$.
+    \item $\sqcup\set{N(x),F} \neq 2^X$.
+    \item There exists $G \in Fil(X)$ such that 
+    $F \subseteq G \neq 2^X$ and $G$ converges to $x$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  $(1\iff 2)$
+  \begin{align*}
+    \sqcup\set{N(x),F} \neq 2^X 
+    &\iff \varnothing \notin \sqcup\set{N(x),F}
+    \iff \forall\, U \in N(x), \forall\, V \in F, U \cap V \neq \varnothing. \\
+    &\iff \forall\, V \in F, x \in \bar{V}. 
+    \iff \forall\, V \in F, x \text{ limit point of } V.
+    \iff x \text{ limit point of } F
+  \end{align*} 
+
+  $(2\iff 3)$ Follows from definitions of convergence and join of filters.
+\end{proof}
+
+\begin{thm} Characterisation of Compactness. 
+  
+  Let $X$ be a topological space. 
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $X$ compact. 
+    \item For all $F \in Fil(X)$,
+    $F \neq 2^X \imp$
+    there exists $x \in X$ such that $x$ is a limit point of $F$.
+    \item For all $F \in Fil(X)$,
+    $F \neq 2^X \imp$
+    there exists $G \in Fil(X)$ and $x \in X$
+    such that $F \subseteq G \neq 2^X$ and $G$ converges to $x$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  $(2 \iff 3)$ Follows from characterisation of limit points of a filter.
+
+  $(1\imp 2)$ 
+  Let $F \neq 2^X \in Fil(X)$.
+  Define $\bar{F} := \set{\bar{V}\st V \in F}$.
+  Then $F \neq 2^X$ implies 
+  all finite intersections of sets in $\bar{F}$ are non-empty. 
+  Since $X$ is compact, 
+  we then have $\bigcap_{\bar{V} \in \bar{F}} \bar{V} \neq \varnothing$.
+  Let $x \in \bigcap_{\bar{V} \in \bar{F}} \bar{V}$.
+  Then for all $V \in F$, $x$ is a limit point of $V$.
+
+  $(2\imp 1)$ Let $I$ be a set of closed subsets of $X$
+  such that for all finite $J \subseteq I$, 
+  $\bigcap_{V \in J} V \neq \varnothing$.
+  Let \[
+    F_I := \set{
+      W \subseteq C \st \exists\, J\text{ fin} \subseteq I, 
+      \bigcap_{V \in J} V \subseteq W
+    }
+  \]
+  Then $F_I \neq 2^X \in Fil(X)$.
+  So there exists $x \in X$
+  such that $x$ is a limit point of $F_I$.
+  Then for all $V \in I \subseteq F_I$, 
+  $V$ closed $\imp x \in V$,
+  i.e. $\cap_{V \in I} V \neq \varnothing$.
+\end{proof}
+
+\begin{dfn} Maximal filters. 
+  
+  Let $X$ be a set and $F \in Fil(X)$.
+  Then $F$ is a \emph{maximal} when 
+  $F \neq 2^X$ and for all $G \in Fil(X)$, 
+  $F \subseteq G \imp F = G$ or $G = 2^X$. 
+\end{dfn}
+
+\begin{lem} Existence of Maximal Filters.
+  
+  Let $X$ be a set, $F \in Fil(X)$ and $F \neq 2^X$.
+  Then there exists $G \in Fil(X)$ such that 
+  $F \subs G$ and $G$ is maximal.
+\end{lem}
+\begin{proof}
+  Standard application of Zorn's lemma.
+\end{proof}
+
+\begin{cor} Maximal Filters Characterisation of Compactness.
+  
+  Let $X$ be a topological space. 
+  Then $X$ is compact $\iff$ for all $F \in Fil(X)$, 
+  $F$ maximal implies the existence of $x \in X$ such that 
+  $F$ converges to $x$.
+\end{cor}
+\begin{proof}
+  $(\imp)$ Let $F \in Fil(X)$ be maximal. 
+  Then by the characterisation of compactness, 
+  there exists $G \in Fil(X)$ and $x \in X$ such that
+  $F \subs G \neq 2^X$ and $G$ converges to $x$.
+  By maximality of $F$, $F = G$.
+
+  $(\limp)$ By the characterisation of compactness,
+  it suffices to show that for all $F \in Fil(X)$,
+  $F \neq 2^X$ implies the existence of 
+  $G \in Fil(X)$ and $x \in X$
+  such that $F \subs G \neq 2^X$ and $G$ converges to $x$.
+
+  So let $F \in Fil(X)$ and $F \neq 2^X$.
+  Then there exists $G \in Fil(X)$ such that 
+  $F \subs G$ and $G$ is maximal. 
+  There exists $x \in X$ such that $G$ converges to $x$
+  and $G \neq 2^X$ by definition.
+\end{proof}
+
+\begin{thm} Characterisation of Maximal filters.
+  
+  Let $X$ be a set and $F \in Fil(X)$.
+  Then the following are equivalent : 
+  \begin{enumerate}
+    \item $F$ is maximal. 
+    \item For all $A \subseteq X$, $A \in F$ or $X\setminus A \in F$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  $(1\imp 2)$ Let $A \subseteq X$, $\io_A : A \to X$.
+  Consider $\sqcup\set{\io_A\set{A},F}$.
+  Note that $F \subseteq \sqcup\set{\io_A\set{A},F}$,
+  so by maximality of $F$, 
+  $F = \sqcup\set{\io_A\set{A},F}$ or $\sqcup\set{\io_A\set{A},F} = 2^X$.
+  In the first case, 
+  by definition of join and $\io_A\set{A}$, 
+  $A \in F$.
+  In the second case, 
+  $\varnothing \in \sqcup\set{\io_A\set{A},F}$,
+  so there exists $U \supseteq A$ and $V \in F$ such that 
+  $U \cap V = \varnothing$.
+  In particular, $V \subseteq X\minus A$, 
+  which implies $X\minus A \in F$.
+
+  $(2\imp 1)$ Let $G \in Fil(X)$ and $F \subseteq G$.
+  Suppose there exists $V \in G\minus F$.
+  Then $X\minus V \in F \subseteq G$,
+  which implies $\varnothing = V \cap \brkt{X\minus V} \in G$,
+  i.e. $G = 2^X$.
+\end{proof}
+
+\begin{lem} Image of Maximal filters.
+  
+  Let $X,Y$ be sets, $f : X \to Y$, $F \in Fil(X)$, $F$ maximal filter.
+  Then $f F$ is an maximal filter of $Y$. 
+\end{lem}
+\begin{proof}
+  By the characterisation of maximal filters, 
+  it suffices for all $B \subs Y$, $B \in fF$ or $Y\minus B \in fF$.
+  Let $B \subs Y$.
+  Then $f\inv B \in F$ or $X\minus f\inv B \in F$.
+  For the first case, $f f\inv B \subs B$ with $f f\inv B \in fF$,
+  so $B \in fF$.
+  In the latter case, $f(X\minus f\inv B) \subs Y\minus B$ with 
+  $f(X\minus f\inv B) \in fF$, so $Y\minus B \in fF$.
+\end{proof}
+
+\begin{thm} Product of Compact is Compact (Tychonoff).
+  
+  Let $I$ be a set and for $i \in I$, $X_i$ a topological space.
+  Then $\prod_{i \in I} X_i$ is compact $\iff$
+  for all $i \in I$, $X_i$ is compact. 
+\end{thm}
+\begin{proof}
+  $(\imp)$ Image of compact is compact under continuous maps.
+
+  $(\limp)$ By the maximal filters characterisation of compactness,
+  it suffices that all maximal filters on $\prod_{i \in I} X_i$ converge.
+  So let $F \in Fil\brkt{\prod_{i \in I} X_i}$ be maximal.
+  Then for all $i \in I$, $\pi_i F \in Fil(X_i)$ is maximal.
+  Since each $X_i$ is compact, 
+  there exists $x_i \in X_i$ such that $\pi_i F$ converges to $x_i$.
+  By the axiom of choice, 
+  $x = (x_i)_{i\in I} \in \prod_{i \in I} X_i$.
+  By characterisation of filters on products, 
+  $F$ converges to $x$.
+\end{proof}
+
+\end{document}
