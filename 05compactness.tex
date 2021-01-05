@@ -3,7 +3,7 @@
 \begin{document}
 \section{Compactness}
 
-\begin{rmk} Naive Characterisation of Compactness. 
+\begin{rmk}[Naive Characterisation of Compactness]
   
   Let $X$ be a topological space. 
   Then the following are equivalent : 
@@ -17,14 +17,14 @@
   \end{enumerate}
 \end{rmk}
 
-\begin{dfn} Limit Point of a Filter.
+\begin{dfn} [Limit Point of a Filter]
   
   Let $X$ be a topological space, $F \in Fil(X)$, $x \in X$.
   Then $x$ is a \emph{limit point of $F$} when
   for all $V \in F$, $x$ is a limit point of $V$.
 \end{dfn}
 
-\begin{thm} Characterisation of Limit Points of a Filter.
+\begin{thm} [Characterisation of Limit Points of a Filter]
   
   Let $X$ be a topological space, $F \in Fil(X)$, $x \in X$. 
   Then the following are equivalent : 
@@ -49,7 +49,7 @@
   $(2\iff 3)$ Follows from definitions of convergence and join of filters.
 \end{proof}
 
-\begin{thm} Characterisation of Compactness. 
+\begin{thm} [Characterisation of Compactness]
   
   Let $X$ be a topological space. 
   Then the following are equivalent : 
@@ -94,7 +94,7 @@
   i.e. $\cap_{V \in I} V \neq \varnothing$.
 \end{proof}
 
-\begin{dfn} Maximal filters. 
+\begin{dfn} [Maximal filters]
   
   Let $X$ be a set and $F \in Fil(X)$.
   Then $F$ is a \emph{maximal} when 
@@ -102,7 +102,7 @@
   $F \subseteq G \imp F = G$ or $G = 2^X$. 
 \end{dfn}
 
-\begin{lem} Existence of Maximal Filters.
+\begin{lem} [Existence of Maximal Filters]
   
   Let $X$ be a set, $F \in Fil(X)$ and $F \neq 2^X$.
   Then there exists $G \in Fil(X)$ such that 
@@ -112,7 +112,7 @@
   Standard application of Zorn's lemma.
 \end{proof}
 
-\begin{cor} Maximal Filters Characterisation of Compactness.
+\begin{cor} [Maximal Filters Characterisation of Compactness]
   
   Let $X$ be a topological space. 
   Then $X$ is compact $\iff$ for all $F \in Fil(X)$, 
@@ -139,7 +139,7 @@
   and $G \neq 2^X$ by definition.
 \end{proof}
 
-\begin{thm} Characterisation of Maximal filters.
+\begin{thm} [Characterisation of Maximal filters]
   
   Let $X$ be a set and $F \in Fil(X)$.
   Then the following are equivalent : 
@@ -171,7 +171,7 @@
   i.e. $G = 2^X$.
 \end{proof}
 
-\begin{lem} Image of Maximal filters.
+\begin{lem} [Image of Maximal filters]
   
   Let $X,Y$ be sets, $f : X \to Y$, $F \in Fil(X)$, $F$ maximal filter.
   Then $f F$ is an maximal filter of $Y$. 
@@ -187,7 +187,7 @@
   $f(X\minus f\inv B) \in fF$, so $Y\minus B \in fF$.
 \end{proof}
 
-\begin{thm} Product of Compact is Compact (Tychonoff).
+\begin{thm} [Product of Compact is Compact (Tychonoff)]
   
   Let $I$ be a set and for $i \in I$, $X_i$ a topological space.
   Then $\prod_{i \in I} X_i$ is compact $\iff$
