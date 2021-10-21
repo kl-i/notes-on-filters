@@ -1,53 +1,190 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\section{Basic Definitions and Galois Connection}
+
+\begin{dfn}[Topological Space]
+  
+  Let $X$ be a set.
+  A \emph{topology on $X$} consists of the following data : 
+  \begin{itemize}
+    \item (Set of Opens) a subset $\tau_X \subs \SUB\SET(X)$.
+    Subsets $U$ of $X$ that are in $\tau_X$ are called \emph{opens}.
+    \item (Finite Intersection) 
+    For $I \subs \tau_X$ finite, $\bigcap_{U \in I} U \in \tau_X$.
+    In particular, $X = \bigcap_{U \in \nothing} U \in \tau_X$.
+    \item (Arbitrary Union)
+    For $I \subs \tau_X$, $\bigcup_{U \in I} U \in \tau_X$.
+    In particular, $\nothing = \bigcup_{U \in \nothing} U \in \tau_X$.
+  \end{itemize}
+  A \emph{topological space} is 
+  a set $X$ together with a topology on it.
+  We often write $X$ instead of $(X,\tau_X)$ for a topological space. 
+
+  For a sequence $a : \N \to X$ and $x \in X$,
+  we write $a_n \to x$ and say \emph{$a$ converges to $x$} when 
+  for all $x \in U \subs X$ where $U$ is open, 
+  there exists $N \in \N$ such that $a \N_{\geq N} \subs U$.
+\end{dfn}
+
+\begin{rmk}[On the standard definition of a topological space.]
+  
+  The above definition is standard and can be motivated as
+  the abstraction of opens in $\R^n$. 
+  However, this begs the question of why consider opens in $\R^n$. 
+  The idea of ``getting close to a point'' is arguably 
+  more intuitively captured by the notion of sequences converging. 
+  The view on \emph{filters} that I adopt is that 
+  they are the generalisation of sequences for topological spaces. 
+  \begin{align*}
+    \text{$\R^n$} &\to \text{Topological Spaces} \\
+    \text{Sequences} &\to \text{Filters}
+  \end{align*}
+\end{rmk}
+
+\begin{prop}[Filter of a Sequence]
+  
+  Let $X$ be a set, $a : \N \to X$. 
+  For a subset $V \subs X$,
+  we say \emph{$a$ converges to $V$} when
+  there exists $N \in \N$ such that 
+  for all $n \geq N$, $a_n \in V$.
+  Let $\al$ be the set of subsets of $X$ that $a$ converges into. 
+  Then we have the following : 
+  \begin{itemize}
+    \item (Universe) $X \in \al$.
+    \item (Finite Intersection) For $U, V \in \al$, $U \cap V \in \al$.
+    \item (Upwards Closed) For $U \subs V \subs X$, 
+    $U \in \al$ implies $V \in \al$.
+  \end{itemize}
+  $\al$ is called the \emph{eventuality filter of $a$}.
+  We will simply call it the \emph{filter of $a$}.
+\end{prop}
+\begin{proof}
+  Easy.
+\end{proof}
+
+\begin{rmk}
+  For purposes of convergence, 
+  the only data of a sequence we really care about is 
+  which subsets they converge into. 
+  The filter of a sequence extracts this data from a sequence and 
+  one can think of a filter in general as abstracting this.
+\end{rmk}
 
 \begin{dfn}[Filter] 
 
-  Let $X$ be a set and $F \subseteq 2^X$. 
-  Then $F$ is a \emph{filter on $X$} when 
-  \begin{enumerate}
-    \item $X \in F$. 
-    \item For all $U \in F$ and $V \subseteq X$, 
-    $U \subseteq V \imp V \in F$.  
-    \item For all $U, V \in F$, $U \cap V \in F$. 
-  \end{enumerate} 
-  Let $Fil(X)$ denote the set of all filters on $X$.
+  Let $X$ be a set and $\al \subseteq 2^X$. 
+  Then $\al$ is a \emph{filter on $X$} when 
+  \begin{itemize}
+    \item (Universe) $X \in \al$.
+    \item (Finite Intersection) For $U, V \in \al$, $U \cap V \in \al$.
+    \item (Upwards Closed) For $U \subs V \subs X$, 
+    $U \in \al$ implies $V \in \al$.
+  \end{itemize}
 
-  $F$ is called \emph{proper} when $F \neq 2^X$,
-  the largest filter in $Fil(X)$. 
+  For a filter $\al$ on $X$ and $V \subs X$,
+  we write $\al \to V$ and say \emph{$\al$ converges into $V$} 
+  when $V \in \al$.
+
+  We will use $\fil(X)$ denote the set of all filters on $X$.
+  Define $\be \to \al$ to mean $\be \sups \al$,
+  yielding a partial order $\to$ on $\fil(X)$.
+
+  The minimal and maximal filters with respect to $\to$ are respectively 
+  the powerset of $X$ and the filter $\set{X}$.
+  We will denote these $\bot, \top$ and call them 
+  the \emph{initial and terminal filter} respectively.
+  
 \end{dfn} 
 
-\begin{dfn}[Image Filter, Preimage Filter]
-
-  Let $f : X \to Y$ be a map of sets, $F \in Fil(X)$, $G \in Fil(Y)$. 
+\begin{rmk}[On the initial and terminal filter]
   
-  Then \begin{align*}
-    f F &:= \set{V \subseteq Y \st \exists\,U \in F, f U \subseteq V} \\
-    f^{-1} G &:= \set{f^{-1}U \subseteq X \st U \in G}
-  \end{align*}
-\end{dfn}
+  Let $X$ be a set and $\al \in \fil(X)$.
+  Then $\al = \bot$ if and only if $\al \to \nothing$.
+  You can thus think of $\bot$ as the ``empty sequence''.
 
-\begin{thm}[Adjunction of Image and Preimage Filters]
+  On the other extreme, for any $A \subs X$,
+  $\top \to A$ if and only if $A = X$.
+  You can think of $\top$ as the ``chaotic sequence'',
+  which ``visits every subset of $X$ but never converges into any''.
+\end{rmk}
 
-  Let $f : X \to Y$ be a map of sets. 
-  Then \begin{enumerate}
-    \item For all $F_1, F_2 \in Fil(X)$, 
-    $F_1 \subseteq F_2 \imp fF_1 \subseteq fF_2$.
-    \item For all $G_1, G_2 \in Fil(Y)$,
-    $G_1 \subseteq G_2 \imp f^{-1}G_1 \subseteq f^{-1}G_2$. 
-    \item For $F \in Fil(X)$ and $G \in Fil(Y)$, 
-    $f^{-1}G \subseteq F \iff G \subseteq fF$.
-  \end{enumerate}
-\end{thm}
+\begin{rmk}[On the Direction of Partial Order of Filters]
+  If $b : \N \to X$ be a subsequence of $a$,
+  then $\be \to \al$ where $\al,\be$ are filters of $a,b$ respectively.
+  So for general filters $\al,\be$,
+  you can think of $\be \to \al$ as saying 
+  ``$\be$ is a subsequence of $\al$''.
+  The next proposition says that
+  for a point $x \in X$ where $X$ is a topological space, 
+  there's is a ``largest sequence converging to $x$''.
+\end{rmk}
+
+\begin{prop}[Neighbourhood Filter]
+  
+  Let $X$ be a topological space, $x \in X$. 
+  For a subset $V \subs X$,
+  we say $V$ is a \emph{neighbourhood of $x$} when 
+  there exists an open $U$ of $X$ such that 
+  $x \in U \subs V$.
+  The \emph{neighbourhood filter of $x$}, denoted $N(x)$,
+  is then defined to be the set of neighbourhoods of $x$.
+  We then have the following : 
+  \begin{itemize}
+    \item $N(x)$ is a filter on $X$.
+    \item For all sequences $a : \N \to X$,
+    $a_n \to x$ if and only if $\al \sups N(x)$ where
+    $\al$ is the filter of $a$.
+  \end{itemize}
+  Hence, for a filter $\al$ on $X$,
+  we write $\al \to x$ and say \emph{$\al$ converges to x} when 
+  $\al \sups N(x)$.
+\end{prop}
 \begin{proof} 
-  $(3)(\imp)$ Let $f^{-1}G \subseteq F$. Let $U \in G$. 
-  Then $f f^{-1} U \subseteq U$, where $f^{-1}U \in f^{-1}G \subseteq F$. 
+  Easy. 
+\end{proof}
 
-  $(3)(\limp)$ Let $G \subseteq fF$. Let $U \in G$.
-  Then there exists $V \in F$, $fV \subseteq U$.
-  So $V \subseteq f^{-1} fV \subseteq f^{-1}U$ implies $f^{-1}U \in F$.
+\begin{rmk}
+  One may wonder if it is possible to 
+  give a topological space by choosing a neighbourhood filter at each point.
+  The answer is yes. 
+\end{rmk}
+
+\begin{prop}[Topological Spaces by Neighbourhood Filters]
+  
+  Let $X$ be a set. 
+  Define a \emph{system of neighbourhood filters on $X$} by the following data :
+  \begin{itemize}
+    \item (The Neighbourhood Filters) 
+    A function $N : X \to \fil(X)$
+    \item (Centred) 
+    For each $x \in X$ and $U \in N(x)$, $x \in U$.
+    \item (Mutual Neighbourhoods)
+    For each $x \in X$ and $V \in N(x)$,
+    there is a $U \subs V$ such that 
+    $x \in U$ and for all $y \in U$, $U \in N(y)$.
+  \end{itemize}
+
+  Let $N$ be a system of neighbourhood filters on $X$ and 
+  $\tau$ a topology in $X$.
+  Consider the following constructions : 
+  \begin{itemize}
+    \item Define the \emph{topology associated to $N$} by 
+    declaring $U \subs X$ to be open when 
+    for all $x \in U$, $U \in N(x)$.
+    Then this forms a topology on $X$.
+    \item Define the \emph{system of neighbourhood filters on $X$
+    associated to $\tau$} by
+    assigning to each point $x$ its neighbourhood filter as defined before.
+    This is a system of neighbourhood filters on $X$.
+  \end{itemize}
+  Then the above two processes are inverses,
+  yielding a bijection between systems of neighbourhood filters and 
+  topologies on $X$.
+  
+\end{prop}
+\begin{proof}
+  Easy. 
 \end{proof}
 
 \end{document}

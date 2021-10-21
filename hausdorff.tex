@@ -1,0 +1,36 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+  
+\begin{rmk}[Naive Characterisation of Hausdorffness]
+  
+  Let $X \in \TOP$. Then 
+  points in $X$ can be separated by opens if and only if 
+  for all sequences $\al$ in $X$ and $x, x_1 \in X$,
+  $\al \to x$ and $\al \to x_1$ implies $x = x_1$.
+
+  This does not work for $X \in \TOP$ with more than one point and 
+  topology $\set{\nothing, X}$. 
+\end{rmk}
+
+\begin{prop}[Characterisation of Hausdorff]
+  
+  Let $X \in \TOP$.
+  Then TFAE : 
+  \begin{enumerate}
+    \item (Standard Definition) For $x, x_1 \in X$,
+    $x \neq x_1$ implies the existence of $U \in N(x)$ and $U_1 \in N(x_1)$
+    with $U \cap U_1 = \nothing$.
+    \item (Filters) For $x, x_1 \in X$ and $\al \in \fil(X)$,
+    $\bot \neq \al \to x$ and $x_1$ implies $x = x_1$.
+    \item (Neighbourhood Filter Suffices)
+    For $x, x_1 \in X$, 
+    $N(x) \sqcap N(x_1) \neq \bot$ implies $x = x_1$.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  $(1 \iff 3)$ definition of meet of filters.
+  $(2 \iff 3)$ Easy. 
+\end{proof}
+
+\end{document}

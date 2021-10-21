@@ -1,77 +1,105 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\section{Continuity}
-
 \begin{rmk}[Naive Characterisation of Continuity]
   
   Let $X, Y$ be topological spaces, $f : X \to Y$ a map of sets. 
-  Then the following are equivalent : 
+  Suppose for a moment that we have the notion of 
+  what it means for $f$ to be \emph{continuous}.
+  Then we would hope that the following are equivalent : 
   \begin{enumerate}
-    \item $f$ continuous. 
+    \item $f$ is a continuous.
     \item For all $x \in X$ and $\al : \N \to X$,
-    $\al$ converges to $x$ $\imp$
-    $f \circ \al$ converges to $f(x)$.
+    $\al \to x$ $\imp$
+    $f \circ \al \to f(x)$.
   \end{enumerate}
+  This is essentially true; we need to replace $\al$ with filters.
+  So clearly, we need a way of ``taking the image of a filter''. 
+  A nice thing about filters is that,
+  whilst there is no canonical way of taking the 
+  \emph{preimage of a sequence}, 
+  this is possible for filters.
 \end{rmk}
 
-\begin{prop} [Neighbourhood Filter]
-  
-  Let $X$ be a topological space, $x \in X$, 
-  $Open(X)$ the set of opens of $X$. \newline
-  Define the set of \emph{neighbourhoods of $x$} as 
-  \[N(x) := 
-  \set{V \subseteq X \st \exists\,U \in Open(X), x \in U \subseteq V}\]
-  Then $N(x) \in Fil(X)$. 
-\end{prop}
-\begin{proof} 
-  Clear.
-\end{proof}
+\begin{dfn}[Image Filter, Preimage Filter]
 
-\begin{dfn} [Filter Converging to Point]
-  
-  Let $X$ be a topological space, $x \in X$, $F \in Fil(X)$.
-  Then \emph{$F$ converges to $x$} when $N(x) \subseteq F$.
+  Let $f : X \to Y$ be a map of sets, $\al \in \fil(X)$, $\be \in \fil(Y)$. 
+  Then define the \emph{image of $\al$} and the \emph{preimage of $\be$}
+  by \begin{align*}
+    f \al &:= \set{V \subseteq Y \st \exists\,U \in \al, f U \subseteq V} \\
+    f^{-1} \be &:= \set{f^{-1}U \subseteq X \st U \in \be}
+  \end{align*}
 \end{dfn}
 
-\begin{rmk} Motivation for Filter Convergence Definition. 
-  
-  Let $X$ be a topological space, $x \in X$,
-  $\al : \N \to X$. 
-  Define the \emph{filter associated with $\al$} as 
-  \[F_\al := 
-  \{V \subseteq X \st \exists\, n \in \N, \al\N_{\geq n} \subseteq V\}\]
-  Then $\al$ converges to $x$ if and only if $F_\al$ converges to $x$.
-\end{rmk}
+\begin{prop}[Adjunction of Image and Preimage Filters]
 
-\begin{thm} [Characterisation of Continuity]
+  Let $f : X \to Y$ be a map of sets. 
+  Then \begin{enumerate}
+    \item $f : \fil(X) \to \fil(Y)$ and $f\inv : \fil(Y) \to \fil(X)$
+    are order preserving.
+    \item For $\al \in \fil(X)$ and $\be \in \fil(Y)$, 
+    $\al \to f^{-1}\be \iff f\al \to \be$.
+  \end{enumerate}
+\end{prop}
+\begin{proof} 
+  Easy. 
+\end{proof}
+
+\begin{prop} [Characterisation of Continuity]
   
   Let $X, Y$ be topological spaces, $f : X \to Y$ a map of sets. 
   Then the following are equivalent : 
   \begin{enumerate}
-    \item $f$ continuous. 
-    \item For all $x \in X$ and $F \in Fil(X)$,
-    $F$ converges to $x$ $\imp$ $fF$ converges to $f(x)$.
-    \item For all $x \in X$, $fN(x)$ converges to $f(x)$.
+    \item (Standard) For all opens $U \subs Y$, $f\inv U$ is open in $X$.
+    \item (Filters) For all $x \in X$ and $\al \in \fil(X)$,
+    $\al \to x$ implies $f\al \to f(x)$.
+    \item (Neihbourhood Filters Suffice)
+    For all $x \in X$, $f N(x) \to N(f(x))$.
   \end{enumerate}
-\end{thm}
+  We call $f$ \emph{continuous}, or a \emph{morphism of topological spaces},
+  when it satisfies any (and thus all) of the above. 
+\end{prop}
 \begin{proof}
-  $(1\imp 2)$
-  Let $x \in X$, $F \in Fil(x)$, $F$ converges to $x$. 
-  Let $V \in N(f(x))$.
-  Then $f^{-1}V \in N(x) \subseteq F$ by continuity of $f$,
-  and $f f^{-1} V \subseteq V$.
-  So $N(f(x)) \subseteq f F$.
+  % $(1\imp 2)$
+  % Let $\al \to x \in X$.
+  % Let $V \in N(f(x))$.
+  % Then $f^{-1}V \in N(x) \subseteq F$ by continuity of $f$,
+  % and $f f^{-1} V \subseteq V$.
+  % So $N(f(x)) \subseteq f F$.
+% 
+  % $(2\imp 3)$ Clear. 
+% 
+  % $(2\imp 1)$ 
+  % Let $U \in Open(Y)$.
+  % Then for all $x \in f^{-1}U$,
+  % $fN(x)$ converges to $f(x)$ implies $U \in fN(x)$.
+  % So there exists $U_x \in N(x)$, $fU_x \subseteq U$.
+  % It follows that $f^{-1}U = \bigcup_{x \in f^{-1}U} U_x$, 
+  % which is open. 
 
-  $(2\imp 3)$ Clear. 
+  $(1 \imp 2)$
+  Let $V \in N(f(x))$. Then $f\inv V \in N(x)$.
+  Then $\al \to f\inv V$ implies $f \al \to f f\inv V$ implies $f \al \to V$.
 
-  $(2\imp 1)$ 
-  Let $U \in Open(Y)$.
-  Then for all $x \in f^{-1}U$,
-  $fN(x)$ converges to $f(x)$ implies $U \in fN(x)$.
-  So there exists $U_x \in N(x)$, $fU_x \subseteq U$.
-  It follows that $f^{-1}U = \bigcup_{x \in f^{-1}U} U_x$, 
-  which is open. 
+  $(2 \iff 3)$ Clear. 
+  $(3 \imp 1)$
+  It suffices that for all $x \in f\inv U$, $f\inv U \in N(x)$.
+  Well, for $x \in f\inv U$, 
+  $fN(x) \to N(f(x)) \to U$ implies $fN(x) \to U$,
+  which implies $N(x) \to f\inv U$ as desired. 
 \end{proof}
+
+\begin{dfn}[Category of Topological Spaces]
+  
+  Define $\TOP$, the \emph{category of topological spaces}, by setting :
+  \begin{itemize}
+    \item objects of $\TOP$ to be topological spaces.
+    \item for two $X,Y \in \TOP$, the set of 
+    morphisms $\TOP(X,Y)$ to be morphisms of topological spaces. 
+    \item for $X \in \TOP$, $\id{X}$ is automatically continuous. 
+    \item the composition of morphisms of topological spaces 
+    is easily seen to be another morphism of topological spaces. 
+  \end{itemize}
+\end{dfn}
 
 \end{document}
